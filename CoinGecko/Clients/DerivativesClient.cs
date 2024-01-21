@@ -2,6 +2,7 @@
 using System.Net.Http;
 using System.Threading.Tasks;
 using CoinGecko.ApiEndPoints;
+using CoinGecko.Authentication;
 using CoinGecko.Entities.Response.Derivatives;
 using CoinGecko.Interfaces;
 
@@ -15,7 +16,7 @@ namespace CoinGecko.Clients
         {
         }
 
-        public DerivativesClient(HttpClient httpClient, JsonSerializerSettings serializerSettings, string apiKey) : base(httpClient, serializerSettings, apiKey)
+        public DerivativesClient(HttpClient httpClient, JsonSerializerSettings serializerSettings, ApiKey apiKey) : base(httpClient, serializerSettings, apiKey)
         {
         }
 

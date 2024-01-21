@@ -1,4 +1,5 @@
 using CoinGecko.ApiEndPoints;
+using CoinGecko.Authentication;
 using CoinGecko.Interfaces;
 using Newtonsoft.Json;
 using System;
@@ -16,13 +17,13 @@ namespace CoinGecko.Clients
     {
         private readonly HttpClient _httpClient;
         private readonly JsonSerializerSettings _serializerSettings;
-        private readonly string _apiKey;
+        private readonly ApiKey _apiKey;
 
-        public BaseApiClient(HttpClient httpClient, JsonSerializerSettings serializerSettings, string apiKey)
+        public BaseApiClient(HttpClient httpClient, JsonSerializerSettings serializerSettings, ApiKey apiKey)
         {
             _httpClient = httpClient;
             _serializerSettings = serializerSettings;
-            _apiKey = apiKey;
+            _apiKey = apiKey ?? ApiKey.NoApiKey;
         }
 
         public BaseApiClient(HttpClient httpClient, JsonSerializerSettings serializerSettings)
@@ -33,9 +34,9 @@ namespace CoinGecko.Clients
 
         public async Task<T> GetAsync<T>(Uri resourceUri)
         {
-            if (!string.IsNullOrEmpty(_apiKey))
+            if (!string.IsNullOrEmpty(_apiKey.Key))
             {
-                resourceUri = AddParameter(resourceUri, "x_cg_pro_api_key", _apiKey);
+                resourceUri = AddParameter(resourceUri, "x_cg_pro_api_key", _apiKey.Key);
             }
 
             //_httpClient.DefaultRequestHeaders.Add("User-Agent", "your bot 0.1");
@@ -93,8 +94,10 @@ namespace CoinGecko.Clients
                 .ToArray();
             var url = encodedParams.Length > 0 ? $"{path}{string.Join(string.Empty, encodedParams)}" : path;
 
-            //using pro API url if apiKey is set
-            return new Uri(string.IsNullOrEmpty(_apiKey) ? BaseApiEndPointUrl.ApiEndPoint : BaseApiEndPointUrl.ProApiEndPoint, url);
+            // Using pro API url if apiKey is set and Paid tier is selected. Otherwise, use free API url.
+            var targetEndpoint = _apiKey.Tier is ApiTier.Paid ? BaseApiEndPointUrl.ProApiEndPoint : BaseApiEndPointUrl.ApiEndPoint;
+
+            return new Uri(targetEndpoint, url);
         }
     }
 }

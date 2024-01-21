@@ -1,3 +1,4 @@
+using CoinGecko.Authentication;
 using CoinGecko.Interfaces;
 using Newtonsoft.Json;
 using System;
@@ -14,7 +15,7 @@ namespace CoinGecko.Clients
         private readonly HttpClient _httpClient;
         private bool _isDisposed;
         private readonly JsonSerializerSettings _serializerSettings;
-        private readonly string _apiKey;
+        private readonly ApiKey _apiKey;
 
         #endregion Fields
 
@@ -24,7 +25,7 @@ namespace CoinGecko.Clients
         {
         }
 
-        public CoinGeckoClient(string apiKey) : this((JsonSerializerSettings)null, apiKey)
+        public CoinGeckoClient(ApiKey apiKey) : this((JsonSerializerSettings)null, apiKey)
         {
         }
 
@@ -33,9 +34,9 @@ namespace CoinGecko.Clients
         {
         }
 
-        public CoinGeckoClient(HttpClientHandler httpClientHandler, string apiKey) : this(httpClientHandler, null, apiKey)
+        public CoinGeckoClient(HttpClientHandler httpClientHandler, ApiKey apiKey) : this(httpClientHandler, null, apiKey)
         {
-            _apiKey = apiKey;
+            _apiKey = apiKey ?? ApiKey.NoApiKey;
         }
 
       
@@ -44,7 +45,7 @@ namespace CoinGecko.Clients
         {
         }
 
-        public CoinGeckoClient(JsonSerializerSettings serializerSettings, string apiKey) : this(new HttpClientHandler(), serializerSettings, apiKey)
+        public CoinGeckoClient(JsonSerializerSettings serializerSettings, ApiKey apiKey) : this(new HttpClientHandler(), serializerSettings, apiKey)
         {
         }
 
@@ -53,7 +54,7 @@ namespace CoinGecko.Clients
         {
         }
 
-        public CoinGeckoClient(HttpClientHandler httpClientHandler, JsonSerializerSettings serializerSettings, string apiKey)
+        public CoinGeckoClient(HttpClientHandler httpClientHandler, JsonSerializerSettings serializerSettings, ApiKey apiKey)
           : this(new HttpClient(httpClientHandler, true), serializerSettings, apiKey)
         {
         }
@@ -63,7 +64,7 @@ namespace CoinGecko.Clients
         {
         }
 
-        public CoinGeckoClient(HttpClient httpClient, string apiKey) : this(httpClient, null, apiKey)
+        public CoinGeckoClient(HttpClient httpClient, ApiKey apiKey) : this(httpClient, null, apiKey)
         {
         }
 
@@ -74,11 +75,11 @@ namespace CoinGecko.Clients
             _serializerSettings = serializerSettings;
         }
 
-        public CoinGeckoClient(HttpClient httpClient, JsonSerializerSettings serializerSettings, string apiKey)
+        public CoinGeckoClient(HttpClient httpClient, JsonSerializerSettings serializerSettings, ApiKey apiKey)
         {
             _httpClient = httpClient;
             _serializerSettings = serializerSettings;
-            _apiKey = apiKey;
+            _apiKey = apiKey ?? ApiKey.NoApiKey;
         }
 
         #endregion Constructors

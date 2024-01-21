@@ -1,4 +1,5 @@
 ﻿using CoinGecko.ApiEndPoints;
+using CoinGecko.Authentication;
 using CoinGecko.Entities.Response.Indexes;
 using CoinGecko.Interfaces;
 using Newtonsoft.Json;
@@ -14,7 +15,7 @@ namespace CoinGecko.Clients
         {
         }
 
-        public IndexesClient(HttpClient httpClient, JsonSerializerSettings serializerSettings, string apiKey) : base(httpClient, serializerSettings, apiKey)
+        public IndexesClient(HttpClient httpClient, JsonSerializerSettings serializerSettings, ApiKey apiKey) : base(httpClient, serializerSettings, apiKey)
         {
         }
 

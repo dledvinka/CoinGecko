@@ -1,4 +1,5 @@
 using CoinGecko.ApiEndPoints;
+using CoinGecko.Authentication;
 using CoinGecko.Entities.Response.Coins;
 using CoinGecko.Interfaces;
 using CoinGecko.Parameters;
@@ -15,7 +16,7 @@ namespace CoinGecko.Clients
         {
         }
 
-        public CoinsClient(HttpClient httpClient, JsonSerializerSettings serializerSettings, string apiKey) : base(httpClient, serializerSettings, apiKey)
+        public CoinsClient(HttpClient httpClient, JsonSerializerSettings serializerSettings, ApiKey apiKey) : base(httpClient, serializerSettings, apiKey)
         {
         }
 

@@ -1,4 +1,5 @@
 ﻿using CoinGecko.ApiEndPoints;
+using CoinGecko.Authentication;
 using CoinGecko.Entities.Response.Contract;
 using CoinGecko.Interfaces;
 using Newtonsoft.Json;
@@ -8,13 +9,14 @@ using System.Threading.Tasks;
 
 namespace CoinGecko.Clients
 {
+
     public class ContractClient : BaseApiClient, IContractClient
     {
         public ContractClient(HttpClient httpClient, JsonSerializerSettings serializerSettings) : base(httpClient, serializerSettings)
         {
         }
 
-        public ContractClient(HttpClient httpClient, JsonSerializerSettings serializerSettings, string apiKey) : base(httpClient, serializerSettings, apiKey)
+        public ContractClient(HttpClient httpClient, JsonSerializerSettings serializerSettings, ApiKey apiKey) : base(httpClient, serializerSettings, apiKey)
         {
         }
 

@@ -1,4 +1,5 @@
 ﻿using CoinGecko.ApiEndPoints;
+using CoinGecko.Authentication;
 using CoinGecko.Entities.Response.Search;
 using CoinGecko.Interfaces;
 using Newtonsoft.Json;
@@ -13,7 +14,7 @@ namespace CoinGecko.Clients
         {
         }
 
-        public SearchClient(HttpClient httpClient, JsonSerializerSettings jsonSerializerSetting, string apiKey) : base(httpClient, jsonSerializerSetting, apiKey)
+        public SearchClient(HttpClient httpClient, JsonSerializerSettings jsonSerializerSetting, ApiKey apiKey) : base(httpClient, jsonSerializerSetting, apiKey)
         {
         }
 

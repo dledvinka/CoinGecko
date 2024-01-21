@@ -1,3 +1,4 @@
+using CoinGecko.Authentication;
 using CoinGecko.Entities.Response;
 using CoinGecko.Interfaces;
 using Newtonsoft.Json;
@@ -12,7 +13,7 @@ namespace CoinGecko.Clients
         {
         }
 
-        public PingClient(HttpClient httpClient, JsonSerializerSettings serializerSettings, string apiKey) : base(httpClient, serializerSettings, apiKey)
+        public PingClient(HttpClient httpClient, JsonSerializerSettings serializerSettings, ApiKey apiKey) : base(httpClient, serializerSettings, apiKey)
         {
         }
 
